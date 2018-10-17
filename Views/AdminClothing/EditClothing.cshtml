@@ -1,0 +1,7 @@
+@model Clothing
+
+<section class="container" >
+    <form asp-action="EditClothing" asp-controller="AdminClothing" method="POST"  >
+        @await Html.PartialAsync("CreateAndModifyClothingPartialView")
+    </form>
+</section>

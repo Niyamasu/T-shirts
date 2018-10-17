@@ -1,0 +1,136 @@
+@model GenericListViewModel<Clothing>
+
+<section class="container" >
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="table-responsive-sm " >
+                <table class="table table-striped table-bordered table-hover " >
+                <caption>T-Shirts</caption>
+                <thead class="" >
+                    <tr scope="row" class="bg-primary"  >
+                        <th scope="col" >Id</th> <th scope="col" >Name</th> 
+                        <th scope="col" >Actions</th>
+                </thead>
+
+                <tbody>
+                    @if(Model.CollectionToSend.Count() == 0 )
+                    {
+                        <tr scope="row" > <td colspan="3" ><p class="text-center" ><b>There is no Clothing to show.</b></p></td> </tr>
+                    }else{
+                        @foreach(Clothing clothing in Model.CollectionToSend){
+                            <tr scope="row" >
+                                <td scope="col" >@clothing.Id</td> <td scope="col" >@clothing.Name</td>
+                                <td>
+                                    <form asp-action="DeleteClothing" asp-controller="AdminClothing" method="POST" >
+                                        <a asp-action="EditClothing" style="width:5em;margin-bottom:3px"
+                                            asp-controller="AdminClothing" 
+                                            asp-route-id="@clothing.Id"
+                                            role="button" class="btn btn-sm btn-warning" >
+                                            Edit
+                                        </a>
+                                        <input type="hidden" name="clothingId" asp-for="@clothing.Id" />
+                                        <button style="width:5em;" class="btn btn-danger btn-sm" 
+                                        type="submit" formmethod="POST" >Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container" >
+    <div class=" form-group row"> 
+        <div class="col-sm-3">
+            <a class="custom-margin btn btn-primary" role="button" 
+                asp-action="CreateClothing" asp-controller="AdminClothing" >
+                Create new Clothing
+            </a>
+        </div>
+        <div class="col-sm-3" >
+            <div class="custom-margin btn-group">
+                <button class=" btn btn-secondary dropdown-toggle" 
+                    type="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select a page
+                </button>
+                <div class="dropdown-menu" page-model-links="@Model.PagingInfo" 
+                        page-action="ClothingList" >
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                            Current Page
+                        </span>
+                    </div>
+                        <input type="text" class=" text-center form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled" value="@Model.PagingInfo.CurrentPage" 
+                        />
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                            Total Items
+                        </span>
+                    </div>
+                        <input type="text" class=" text-center form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled" value="@Model.PagingInfo.TotalItems" 
+                        />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="container" >
+    <div class=" form-group row">
+        <div class="col-sm-3 offset-sm-6">
+            <form>
+                <div class=" custom-margin input-group sm-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                            Items Per Page
+                        </span>
+                    </div>
+                        <input type="text" class=" text-center form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled" value="@Model.PagingInfo.ItemsPerPage" 
+                        />
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <form>
+                <div class="custom-margin input-group sm-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                            Total Pages
+                        </span>
+                    </div>
+                        <input type="text" class=" text-center form-control" 
+                        aria-label="Sizing example input" 
+                        aria-describedby="inputGroup-sizing-default"
+                        disabled="disabled" value="@Model.PagingInfo.QtdPages" 
+                        />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+

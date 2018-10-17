@@ -1,0 +1,29 @@
+@model Size
+
+        <div asp-validation-summary="ModelOnly" ></div>
+        <div class="row" >
+            <div class="col-sm-12 form-group" >
+                <label asp-for="@Model.Id" ></label>
+                <input readonly="readonly" asp-for="@Model.Id" 
+                    class="form-control" />
+                <div><span asp-validation-for="@Model.Id" ></span></div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-12 form-group" >
+                <label asp-for="@Model.Name" ></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <div><span asp-validation-for="@Model.Name" ></span></div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-2 form-group" >
+                <button class="btn btn-primary" formmethod="POST" >
+                    Save
+                </button>
+            </div>
+            <div class="col-sm-2 form-group" >
+                <a class="btn btn-danger"  asp-controller="AdminSize" asp-action="SizeList"
+                    role="button" >Cancel</a>
+            </div>
+        </div>

@@ -1,0 +1,7 @@
+@model Size
+
+<section class="container" >
+    <form asp-action="EditSize" asp-controller="AdminSize" method="POST"  >
+        @await Html.PartialAsync("CreateAndModifySizePartialView")
+    </form>
+</section>

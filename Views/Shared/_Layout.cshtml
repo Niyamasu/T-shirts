@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Example WEB application" />
+        <meta name="keywords" content="Example WEB application" />
+        <meta name="author" content="Matheus Alves Lima" />
+        <title>@ViewBag.Title</title>
+        <style>
+            .field-validation-error
+            {
+                color: red;
+            }
+        </style>
+        <environment names="development" >
+            <link type="text/css" rel="stylesheet" 
+            asp-href-include="~/lib/bootstrap-4.1.3/dist/**/bootstrap.css" />
+            <link type="text/css" rel="stylesheet" asp-href-include="~/**/Custom.css" />
+            <script type="application/javascript" defer="defer" 
+            asp-src-include="~/lib/jquery/dist/jquery.js" ></script>
+            <script type="application/javascript" defer="defer" 
+            asp-src-include="~/lib/popper.js/dist/umd/popper.js" ></script>
+            <script type="application/javascript" defer="defer" 
+            asp-src-include="~/lib/bootstrap-4.1.3/dist/**/bootstrap.js" ></script>
+        </environment>
+        <environment names="production" >
+            <link type="text/css" rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/**/*.min.css"
+                asp-href-exclude=""    >
+        </environment>  
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand" asp-action="Index" asp-route-pagenumber="1" 
+                asp-controller="AdminTshirt" >T-shirts
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" 
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav" >
+                    <li class="nav-item" >
+                        <div class="dropdown ">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                                data-offset="10,20">
+                            T-shirt properties
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <a class="dropdown-item" asp-controller="AdminColor"
+                                    asp-action="ColorList"  >Color Property</a>
+                                <a class="dropdown-item" asp-controller="AdminSize"
+                                    asp-action="SizeList" >Size Property</a>
+                                <a class="dropdown-item" asp-controller="AdminType"
+                                    asp-action="TypeList" >Type Property</a>
+                                <a class="dropdown-item" asp-controller="AdminClothing"
+                                    asp-action="ClothingList" >Clothing Property</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item" ><a href="#" class="nav-link" >PLACE HOLDER</a></li>
+                    <li class="nav-item" ><a href="#" class="nav-link" >PLACE HOLDER</a></li>
+                    <li class="nav-item" ><a href="#" class="nav-link" >PLACE HOLDER</a></li>
+                    <li class="nav-item" ><a href="#" class="nav-link" >PLACE HOLDER</a></li>
+                </ul>
+            </div>
+        </nav>
+        @await Html.PartialAsync("AlertMessagesPartialView")
+        <br/>
+        <br/>
+
+        @RenderBody()
+
+        <br/>
+        <br/>
+    </body>
+</html>

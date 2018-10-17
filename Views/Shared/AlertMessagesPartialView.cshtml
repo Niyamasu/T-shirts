@@ -1,0 +1,30 @@
+        @if(TempData["SuccessMessage"] != null)
+        {
+            string message = (string) TempData["SuccessMessage"];
+            <div style="font-size:2.1em;" class=" alert alert-success text-xl-center alert-dismissible fade show" role="alert" >
+                @message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        @if(TempData["WarningMessage"] != null)
+        {
+            string message = (string) TempData["WarningMessage"];
+            <div style="font-size:2.1em;" class=" alert alert-warning text-xl-center alert-dismissible fade show" role="alert" >
+                @message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        @if(TempData["ErrorMessage"] != null)
+        {
+            string message = (string) TempData["ErrorMessage"];
+            <div style="font-size:2.1em;" class=" alert alert-danger text-xl-center alert-dismissible fade show" role="alert" >
+                @message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }

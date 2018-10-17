@@ -1,0 +1,4 @@
+# Files generated at runtime
+obj/**/*.*
+# Visual studio code extension
+.vscode/**/*.*

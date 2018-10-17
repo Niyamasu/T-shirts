@@ -1,0 +1,7 @@
+@model Color
+
+<section class="container" >
+    <form asp-action="CreateColor" asp-controller="AdminColor" method="POST"  >
+        @await Html.PartialAsync("CreateAndModifyColorPartialView")
+    </form>
+</section>

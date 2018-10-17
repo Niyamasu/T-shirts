@@ -1,0 +1,10 @@
+.dropdown-menu
+{
+    overflow-x: scroll;
+    height:12.5em;
+}
+
+@media only screen and (max-width: 576px)
+{
+    .custom-margin {margin-bottom: 1em;}
+}

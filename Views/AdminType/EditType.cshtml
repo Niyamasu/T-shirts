@@ -1,0 +1,7 @@
+@model Camisetas.Models.Type
+
+<section class="container" >
+    <form asp-action="EditType" asp-controller="AdminType" method="POST"  >
+        @await Html.PartialAsync("CreateAndModifyTypePartialView")
+    </form>
+</section>
