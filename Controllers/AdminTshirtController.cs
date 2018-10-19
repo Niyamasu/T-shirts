@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System;
 using Camisetas.Infrastructure.Filters;
 using Camisetas.Infrastructure;
@@ -16,10 +17,24 @@ namespace Camisetas.Controllers
     {
         // Fields
         private ITshirtRepository tshirtRepository;
+        private IColorRepository colorRepository;
+        private ISizeRepository sizeRepository;
+        private IClothingRepository clothingRepository;
+        private ITypeRepository typeRepository;
 
         // Ctor.
-        public AdminTshirtController(ITshirtRepository repo)
-            => this.tshirtRepository = repo;
+        public AdminTshirtController(ITshirtRepository tshirtRepo,
+            IColorRepository colorRepo,
+            ISizeRepository sizeRepo,
+            IClothingRepository clothingRepo,
+            ITypeRepository typeRepo)
+            {
+                this.tshirtRepository = tshirtRepo;
+                this.colorRepository = colorRepo;
+                this.sizeRepository = sizeRepo;
+                this.clothingRepository = clothingRepo;
+                this.typeRepository = typeRepo;
+            } 
         
 
         // Methods
@@ -42,17 +57,19 @@ namespace Camisetas.Controllers
         [HttpGet]
         public ViewResult Create()
         {
-            return View(new Tshirt());
+            return View(new TshirtViewModel());
         } // End of method Create.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([FromForm]Tshirt tshirtModel)
+        public IActionResult Create([FromForm]TshirtViewModel tshirtModel)
         {
             if(ModelState.IsValid)
             {
-                tshirtRepository.SaveTshirt(tshirtModel);
-                TempData["SuccessMessage"] = $"{tshirtModel.Name} ({tshirtModel.Id}) "
+                Tshirt tshirt = ConvertToTshirt(tshirtModel);
+                tshirtRepository.SaveTshirt(tshirt);
+                TempData["SuccessMessage"] = $"{tshirt.Name} "
+                +$"tshirt ({tshirt.Id}) "
                 +"was successfully created";
                 return RedirectToAction(nameof(Create));
             }else{
@@ -63,17 +80,17 @@ namespace Camisetas.Controllers
         [HttpGet]
         public ViewResult Edit (Guid id) 
             => View( (tshirtRepository[id]) != null ? 
-                tshirtRepository[id]
+                ConvertToTshirtViewModel(tshirtRepository[id])
                 : throw new ArgumentNullException(nameof(id),
                     "Unable to find color to edit"));
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Tshirt tshirtModel)
+        public IActionResult Edit(TshirtViewModel tshirtModel)
         {
             if(ModelState.IsValid)
             {
-                tshirtRepository.SaveTshirt(tshirtModel);
+                tshirtRepository.SaveTshirt( ConvertToTshirt(tshirtModel));
                 TempData["SuccessMessage"] = $"{tshirtModel.Name} ({tshirtModel.Id}) "
                 +"was successfully edited";
                 return RedirectToAction(nameof(Edit));
@@ -102,6 +119,36 @@ namespace Camisetas.Controllers
                 return RedirectToAction(nameof(Index));
             }
         } // End of method Delete
+        private TshirtViewModel ConvertToTshirtViewModel(Tshirt tshirt)
+        {
+            TshirtViewModel tshirtViewModel = new TshirtViewModel();
+            tshirtViewModel.Id = tshirt.Id;
+            tshirtViewModel.Name = tshirt.Name;
+            tshirtViewModel.Price = tshirt.Price;
+            tshirtViewModel.Size = tshirt.Size.Id;
+            tshirtViewModel.Type = tshirt.Type.Id;
+            tshirtViewModel.Color = tshirt.Color.Id;
+            tshirtViewModel.Clothing = tshirt.Clothing.Id;
+            tshirtViewModel.Width = tshirt.Width;
+            tshirtViewModel.Height = tshirt.Height;
+            return tshirtViewModel;
+        }
+
+        private Tshirt ConvertToTshirt(TshirtViewModel tshirtViewModel)
+        {
+            Tshirt tshirt = new Tshirt(){
+                Id = tshirtViewModel.Id,
+                Name = tshirtViewModel.Name,
+                Price = tshirtViewModel.Price,
+                Width = tshirtViewModel.Width,
+                Height = tshirtViewModel.Height
+            };
+            tshirt.Size = sizeRepository[tshirtViewModel.Size];
+            tshirt.Type = typeRepository[tshirtViewModel.Type];
+            tshirt.Color = colorRepository[tshirtViewModel.Color];
+            tshirt.Clothing = clothingRepository[tshirtViewModel.Clothing];
+            return tshirt;
+        } // End of method ConvertToTshirt.
 
     } // End of class HomeController.
 

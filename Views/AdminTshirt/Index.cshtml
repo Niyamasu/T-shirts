@@ -23,8 +23,8 @@
                         @foreach(Tshirt tshirt in Model.CollectionToSend){
                             <tr scope="row" >
                                 <td scope="col" >@tshirt.Id</td> <td scope="col" >@tshirt.Name</td> <td scope="col" >@tshirt.Price.ToString(@"R$0.00")</td> 
-                                <td scope="col" >@tshirt.Size</td> <td scope="col" >@tshirt.Color</td> <td scope="col" >@tshirt.Type</td>
-                                <td scope="col" >@tshirt.Clothing</td> <td scope="col">@tshirt.Width.ToString(@"0.00cm")</td> <td scope="col">@tshirt.Height.ToString(@"0.00cm")</td>
+                                <td scope="col" >@tshirt.Size.Name</td> <td scope="col" >@tshirt.Color.Name</td> <td scope="col" >@tshirt.Type.Name</td>
+                                <td scope="col" >@tshirt.Clothing.Name</td> <td scope="col">@tshirt.Width.ToString(@"0.00cm")</td> <td scope="col">@tshirt.Height.ToString(@"0.00cm")</td>
                                 <td>
                                     <form asp-action="Delete" asp-controller="AdminTshirt" method="POST" >
                                         <a asp-action="Edit" style="width:5em;margin-bottom:3px" 

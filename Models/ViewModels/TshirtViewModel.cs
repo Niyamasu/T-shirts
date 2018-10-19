@@ -1,13 +1,16 @@
-using Camisetas.Models.BaseEntity;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Camisetas.Models;
 
-namespace Camisetas.Models
+namespace Camisetas.Models.ViewModels
 {
-    public interface ITshirt {}
-    public class Tshirt : Base, ITshirt
+    public class TshirtViewModel :  ITshirt
     {
+        // Properties
+        [Key]
+        [Display(Name = "Id")]
+        [Required(ErrorMessage = "An Id is Required")]
+        public Guid Id {get;set;} = default;
 
         [Required(ErrorMessage = "Please, insert a name")]
         [Display(Name = "Name")]
@@ -15,7 +18,7 @@ namespace Camisetas.Models
             ErrorMessage = "Use only lowercase and uppercase letters, "
             +"numbers, white spaces and the following tokens: / and -."
             +" Max.length: 1 - 50 characters")]
-        public override string Name {get;set;}
+        public string Name {get;set;}
 
         [Required(ErrorMessage = "Please, insert a valid price")]
         [DisplayAttribute(Name = "Price")]
@@ -25,31 +28,31 @@ namespace Camisetas.Models
 
         [Required(ErrorMessage = "Please, insert a size")]
         [DisplayAttribute(Name = "Size")]
-        [RegularExpression(@"^[A-Z]{1,3}$",ErrorMessage = "Use only uppercase letters."
-            + " Max.length: 1 - 3 characters")]
-        public Size Size {get;set;}
+        // [RegularExpression(@"^[A-Z]{1,3}$",ErrorMessage = "Use only uppercase letters."
+        //     + " Max.length: 1 - 3 characters")]
+        public Guid Size {get;set;}
 
         [Required(ErrorMessage = "Please, insert a color")]
         [DisplayAttribute(Name = "Color")]
-        [RegularExpression(@"^[A-Za-z]{1,20}$",
-            ErrorMessage = "Use only uppercase and lowercase letters."
-            + " Max.length: 1 - 20 characters")]
-        public Color Color {get;set;}
+        // [RegularExpression(@"^[A-Za-z]{1,20}$",
+        //     ErrorMessage = "Use only uppercase and lowercase letters."
+        //     + " Max.length: 1 - 20 characters")]
+        public Guid Color {get;set;}
 
         [Required(ErrorMessage = "Please, insert a type")]
         [DisplayAttribute(Name = "Type")]
-        [RegularExpression(@"^[A-Za-z]{1,20}$",
-            ErrorMessage = "Use only uppercase and lowercase letters."
-            + " Max.length: 1 - 20 characters")]
-        public Type Type {get;set;} // Ex.: Social, Polo, Pullovers 
+        // [RegularExpression(@"^[A-Za-z]{1,20}$",
+        //     ErrorMessage = "Use only uppercase and lowercase letters."
+        //     + " Max.length: 1 - 20 characters")]
+        public Guid Type {get;set;} // Ex.: Social, Polo, Pullovers 
 
         [Required(ErrorMessage = "Please, insert a clothing")]
         [DisplayAttribute(Name = "Clothing")]
-        [RegularExpression(@"^[A-Za-z]{1,20}$",
-            ErrorMessage = "Use only uppercase and lowercase letters."
-            + " Max.length: 1 - 20 characters")]
+        // [RegularExpression(@"^[A-Za-z]{1,20}$",
+        //     ErrorMessage = "Use only uppercase and lowercase letters."
+        //     + " Max.length: 1 - 20 characters")]
 
-        public Clothing Clothing {get;set;}
+        public Guid Clothing {get;set;}
 
         [DisplayAttribute(Name = "Width")]
         [RegularExpression("^[0-9]{0,3}(,|.)[0-9]{0,2}$",
@@ -61,6 +64,6 @@ namespace Camisetas.Models
             ErrorMessage = "Insert numbers as the following pattern: 000,00")]
         public double Height {get;set;}
 
-    } // End of class Product.
+    } // End of class TshirtPropertyViewModel.
 
-} // End of namespace Camisetas.Models.
+} // End of namespace Camisetas.Models.ViewModels.

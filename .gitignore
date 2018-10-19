@@ -1,4 +1,7 @@
 # Files generated at runtime
 obj/**/*.*
+bin/**/*.*
 # Visual studio code extension
 .vscode/**/*.*
+# Custom Files
+*.key

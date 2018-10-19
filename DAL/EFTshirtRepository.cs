@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -12,10 +13,19 @@ namespace Camisetas.DAL
         private AppDbContext dbContext;
 
         // Indexers
-        public Tshirt this[Guid id] => dbContext.Tshirts.Find(id);
+        public Tshirt this[Guid id] => dbContext.Tshirts
+            .Include(c => c.Clothing)
+            .Include(t => t.Type)
+            .Include(c => c.Color)
+            .Include(s => s.Size)
+            .FirstOrDefault(t => t.Id == id);
 
         // Properties
-        public IEnumerable<Tshirt> Tshirts => dbContext.Tshirts.ToList();
+        public IEnumerable<Tshirt> Tshirts => dbContext.Tshirts
+            .Include(c => c.Clothing)
+            .Include(t => t.Type)
+            .Include(c => c.Color)
+            .Include(s => s.Size);
 
         // Ctor
         public EFTshirtRepository (AppDbContext ctx) 
