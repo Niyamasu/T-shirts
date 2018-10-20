@@ -18,9 +18,9 @@
         <div class=" col-sm-5 form-group" >
             <label asp-for="@Model.Type" ></label>
                 <select asp-for="@Model.Type" 
-                    option-model-type="@new Camisetas.Models.Type()" 
-                    class="custom-select" required="required"
-                    >
+                    option-model-type="@new Camisetas.Models.Type()"
+                    option-model-id="@Model.Type"
+                    class="custom-select" required="required">
                     <option value="" disabled="disabled">Select a Type</option>
                 </select>
             <div><span asp-validation-for="Type" ></span></div>
@@ -32,9 +32,11 @@
         </div>
         <div class=" col-sm-3 form-group" >
             <label asp-for="@Model.Color" ></label>
-                <select asp-for="@Model.Color" option-model-type="@new Color()" 
-                    class="custom-select" required="required"
-                    >
+                <select asp-for="@Model.Color"
+                    option-model-type="@new Color()" 
+                    class="custom-select"
+                    required="required"
+                    option-model-id="@Model.Color">
                     <option value="" disabled="disabled" >Select a Color</option>
                 </select>
             <div><span asp-validation-for="Color" ></span></div>
@@ -43,9 +45,11 @@
     <div class="row justify-content-center " >
         <div class=" col-sm-5 form-group" >
             <label asp-for="@Model.Clothing" ></label>
-                <select asp-for="@Model.Clothing" option-model-type="@new Clothing()" 
-                    class="custom-select" required="required"
-                    >
+                <select asp-for="@Model.Clothing"
+                    option-model-type="@new Clothing()"
+                    option-model-id="@Model.Clothing"
+                    class="custom-select" 
+                    required="required">
                     <option value="" disabled="disabled" >Select a Clothing</option>
                 </select>
             <div><span asp-validation-for="Clothing" ></span></div>
@@ -57,9 +61,11 @@
         </div>
         <div class=" col-sm-2 form-group" >
             <label asp-for="@Model.Size" ></label>
-                <select asp-for="@Model.Size" option-model-type="@new Size()"
-                    class="custom-select" required="required"
-                    >
+                <select asp-for="@Model.Size"
+                    option-model-type="@new Size()"
+                    class="custom-select"
+                    required="required"
+                    option-model-id="@Model.Size">
                     <option value="" disabled="disabled" >Select a Size</option>
                 </select>
             <div><span asp-validation-for="Size" ></span></div>

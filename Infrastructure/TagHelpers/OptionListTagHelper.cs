@@ -24,8 +24,8 @@ namespace Camisetas.Infrastructure.TagHelpers
         [HtmlAttributeName("option-model-type")]
         public Object ModelType {get;set;}
 
-        // [HtmlAttributeName("option-model-id")]
-        // public Guid? ModelGuid {get;set;} = null;   
+        [HtmlAttributeName("option-model-id")]
+        public Guid ModelGuid {get;set;} = default;   
 
         // Ctor
         public OptionListTagHelper(AppDbContext ctx) => dbContext = ctx;
@@ -43,15 +43,15 @@ namespace Camisetas.Infrastructure.TagHelpers
                     optionTag.TagRenderMode = TagRenderMode.Normal;
                     optionTag.InnerHtml.Append(color.Name);
                     optionTag.Attributes["value"] = color.Id.ToString();
-                    // if(ModelGuid != null){
-                    //     if(ModelGuid == color.Id)
-                    //     {optionTag.Attributes["selected"] = "selected";}
-                    // }
+                    if(ModelGuid != null){
+                        if(ModelGuid == color.Id)
+                        {optionTag.Attributes["selected"] = "selected";}
+                    }
                     output.Content.AppendHtml(optionTag);
                 }
                 return Task.CompletedTask;
             }
-            else if(ModelType is Models.Type _)
+            if(ModelType is Models.Type _)
             {
                 List<Models.Type> types = dbContext.Types.ToList();
                 foreach(Models.Type type in types)
@@ -60,15 +60,15 @@ namespace Camisetas.Infrastructure.TagHelpers
                     optionTag.TagRenderMode = TagRenderMode.Normal;
                     optionTag.InnerHtml.Append(type.Name);
                     optionTag.Attributes["value"] = type.Id.ToString();
-                    // if(ModelGuid != null){
-                    //     if(ModelGuid == type.Id)
-                    //     {optionTag.Attributes["selected"] = "selected";}
-                    // }
+                    if(ModelGuid != null){
+                        if(ModelGuid == type.Id)
+                        {optionTag.Attributes["selected"] = "selected";}
+                    }
                     output.Content.AppendHtml(optionTag);
                 }
                 return Task.CompletedTask;
             }
-            else if(ModelType is Size _)
+            if(ModelType is Size _)
             {
                 List<Size> sizes = dbContext.Sizes.ToList();
                 foreach(Size size in sizes)
@@ -77,15 +77,15 @@ namespace Camisetas.Infrastructure.TagHelpers
                     optionTag.TagRenderMode = TagRenderMode.Normal;
                     optionTag.InnerHtml.Append(size.Name);
                     optionTag.Attributes["value"] = size.Id.ToString();
-                    // if(ModelGuid != null){
-                    //     if(ModelGuid == size.Id)
-                    //     {optionTag.Attributes["selected"] = "selected";}
-                    // }
+                    if(ModelGuid != null){
+                        if(ModelGuid == size.Id)
+                        {optionTag.Attributes["selected"] = "selected";}
+                    }
                     output.Content.AppendHtml(optionTag);
                 }
                 return Task.CompletedTask;
             }
-            else
+            if(ModelType is Clothing _)
             {
                 List<Clothing> clothings = dbContext.Clothings.ToList();
                 foreach(Clothing clothing in clothings)
@@ -94,14 +94,15 @@ namespace Camisetas.Infrastructure.TagHelpers
                     optionTag.TagRenderMode = TagRenderMode.Normal;
                     optionTag.InnerHtml.Append(clothing.Name);
                     optionTag.Attributes["value"] = clothing.Id.ToString();
-                    // if(ModelGuid != null){
-                    //     if(ModelGuid == clothing.Id)
-                    //     {optionTag.Attributes["selected"] = "selected";}
-                    // }
+                    if(ModelGuid != null){
+                        if(ModelGuid == clothing.Id)
+                        {optionTag.Attributes["selected"] = "selected";}
+                    }
                     output.Content.AppendHtml(optionTag);
                 }
                 return Task.CompletedTask;
             }
+            return Task.CompletedTask;
         } // End of method ProcessAsync.
 
     } // End of class OptionListTagHelper.
