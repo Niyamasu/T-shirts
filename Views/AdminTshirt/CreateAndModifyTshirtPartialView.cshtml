@@ -1,6 +1,7 @@
 @model TshirtViewModel
 
 <div asp-validation-summary="ModelOnly" ></div>
+    @* Line 1 - For Name and ID of Tshirt *@
     <div class="row justify-content-center " >
         <div class="col-sm-5 form-group" >
             <label asp-for="@Model.Name" ></label>
@@ -14,6 +15,7 @@
             <div><span asp-validation-for="@Model.Id" ></span></div>
         </div>
     </div>
+    @* Line 2 - For Type, Price and Color of Tshirt *@
     <div class="row justify-content-center ">
         <div class=" col-sm-5 form-group" >
             <label asp-for="@Model.Type" ></label>
@@ -42,6 +44,7 @@
             <div><span asp-validation-for="Color" ></span></div>
         </div>
     </div>
+    @* Line 3 - For Clothing, Height, Size and Width of Tshirt *@
     <div class="row justify-content-center " >
         <div class=" col-sm-5 form-group" >
             <label asp-for="@Model.Clothing" ></label>
@@ -76,6 +79,7 @@
             <div><span asp-validation-for="Width" ></span></div>
         </div>
     </div>
+    @* Line 4 - For Save and Cancel buttons *@
     <div class="row" >
         <div class=" offset-md-1 col-sm-1 form-group" >
             <button type="submit" formmethod="POST" class="btn btn-primary" >

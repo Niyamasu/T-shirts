@@ -15,33 +15,33 @@ namespace Camisetas.Models
             ErrorMessage = "Use only lowercase and uppercase letters, "
             +"numbers, white spaces and the following tokens: / and -."
             +" Max.length: 1 - 50 characters")]
-        public override string Name {get;set;}
+        public override string Name {get;set;} = default;
 
         [Required(ErrorMessage = "Please, insert a valid price")]
         [DisplayAttribute(Name = "Price")]
         [RegularExpression(@"^[0-9]{1,12}(,|.)[0-9]{1,2}$",
             ErrorMessage = "A positive number in the following pattern: 000000000000,00")]
-        public decimal Price {get;set;}
+        public decimal Price {get;set;} = default;
 
         [Required(ErrorMessage = "Please, insert a size")]
         [DisplayAttribute(Name = "Size")]
         [RegularExpression(@"^[A-Z]{1,3}$",ErrorMessage = "Use only uppercase letters."
             + " Max.length: 1 - 3 characters")]
-        public Size Size {get;set;}
+        public Size Size {get;set;} = default;
 
         [Required(ErrorMessage = "Please, insert a color")]
         [DisplayAttribute(Name = "Color")]
         [RegularExpression(@"^[A-Za-z]{1,20}$",
             ErrorMessage = "Use only uppercase and lowercase letters."
             + " Max.length: 1 - 20 characters")]
-        public Color Color {get;set;}
+        public Color Color {get;set;} = default;
 
         [Required(ErrorMessage = "Please, insert a type")]
         [DisplayAttribute(Name = "Type")]
         [RegularExpression(@"^[A-Za-z]{1,20}$",
             ErrorMessage = "Use only uppercase and lowercase letters."
             + " Max.length: 1 - 20 characters")]
-        public Type Type {get;set;} // Ex.: Social, Polo, Pullovers 
+        public Type Type {get;set;} = default; // Ex.: Social, Polo, Pullovers 
 
         [Required(ErrorMessage = "Please, insert a clothing")]
         [DisplayAttribute(Name = "Clothing")]
@@ -49,17 +49,17 @@ namespace Camisetas.Models
             ErrorMessage = "Use only uppercase and lowercase letters."
             + " Max.length: 1 - 20 characters")]
 
-        public Clothing Clothing {get;set;}
+        public Clothing Clothing {get;set;} = default;
 
         [DisplayAttribute(Name = "Width")]
         [RegularExpression("^[0-9]{0,3}(,|.)[0-9]{0,2}$",
             ErrorMessage = "Insert numbers as the following pattern: 000,00")]
-        public double Width {get;set;}
+        public double Width {get;set;} = default;
 
         [DisplayAttribute(Name = "Height")]
         [RegularExpression("^[0-9]{0,3}(,|.)[0-9]{0,2}$",
             ErrorMessage = "Insert numbers as the following pattern: 000,00")]
-        public double Height {get;set;}
+        public double Height {get;set;} = default;
 
     } // End of class Product.
 

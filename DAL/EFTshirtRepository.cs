@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -43,22 +44,7 @@ namespace Camisetas.DAL
                     dbContext.Tshirts.Add(tshirt);
                 }else
                 {
-                    Tshirt tshirtUpdate = dbContext.Tshirts
-                        .FirstOrDefault(t => t.Id == tshirt.Id);
-                    if(tshirtUpdate != null)
-                    {
-                        tshirtUpdate.Name = tshirt.Name;
-                        tshirtUpdate.Price = tshirt.Price;
-                        tshirtUpdate.Size = tshirt.Size;
-                        tshirtUpdate.Color = tshirt.Color;
-                        tshirtUpdate.Type = tshirt.Type;
-                        tshirtUpdate.Clothing = tshirt.Clothing;
-                        tshirtUpdate.Height = tshirt.Height;
-                        tshirtUpdate.Width = tshirt.Width;
-                    }else{
-                        throw new ArgumentNullException(nameof(tshirtUpdate),
-                            "Unable to find tshirt entity to save");
-                    }
+                    dbContext.Tshirts.Update(tshirt);
                 }
                 dbContext.SaveChanges();
             }else{ throw new ArgumentNullException(nameof(tshirt),

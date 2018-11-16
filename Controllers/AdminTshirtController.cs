@@ -81,7 +81,7 @@ namespace Camisetas.Controllers
         public ViewResult Edit (Guid id) 
             => View( (tshirtRepository[id]) != null ? 
                 ConvertToTshirtViewModel(tshirtRepository[id])
-                : throw new ArgumentNullException(nameof(id),
+                : throw new ArgumentException(nameof(id),
                     "Unable to find color to edit"));
 
         [HttpPost]
@@ -121,35 +121,50 @@ namespace Camisetas.Controllers
         } // End of method Delete
         private TshirtViewModel ConvertToTshirtViewModel(Tshirt tshirt)
         {
-            TshirtViewModel tshirtViewModel = new TshirtViewModel();
-            tshirtViewModel.Id = tshirt.Id;
-            tshirtViewModel.Name = tshirt.Name;
-            tshirtViewModel.Price = tshirt.Price;
-            tshirtViewModel.Size = tshirt.Size.Id;
-            tshirtViewModel.Type = tshirt.Type.Id;
-            tshirtViewModel.Color = tshirt.Color.Id;
-            tshirtViewModel.Clothing = tshirt.Clothing.Id;
-            tshirtViewModel.Width = tshirt.Width;
-            tshirtViewModel.Height = tshirt.Height;
+            TshirtViewModel tshirtViewModel = new TshirtViewModel()
+            {
+                Id = tshirt.Id,
+                Name = tshirt.Name,
+                Price = tshirt.Price,
+                Size = tshirt.Size.Id,
+                Type = tshirt.Type.Id,
+                Color = tshirt.Color.Id,
+                Clothing = tshirt.Clothing.Id,
+                Width = tshirt.Width,
+                Height = tshirt.Height
+            };
             return tshirtViewModel;
         }
 
         private Tshirt ConvertToTshirt(TshirtViewModel tshirtViewModel)
         {
-            Tshirt tshirt = new Tshirt(){
-                Id = tshirtViewModel.Id,
-                Name = tshirtViewModel.Name,
-                Price = tshirtViewModel.Price,
-                Width = tshirtViewModel.Width,
-                Height = tshirtViewModel.Height
-            };
-            tshirt.Size = sizeRepository[tshirtViewModel.Size];
-            tshirt.Type = typeRepository[tshirtViewModel.Type];
-            tshirt.Color = colorRepository[tshirtViewModel.Color];
-            tshirt.Clothing = clothingRepository[tshirtViewModel.Clothing];
+            Tshirt tshirt = tshirtRepository[tshirtViewModel.Id];
+            tshirt = tshirt is null ? new Tshirt() : tshirt;
+
+            tshirt.Name = tshirtViewModel.Name;
+            tshirt.Price = tshirtViewModel.Price;
+            tshirt.Width = tshirtViewModel.Width;
+            tshirt.Height = tshirtViewModel.Height;
+
+            tshirt.Size = tshirt.Size is null  || 
+                tshirt.Size.Id != tshirtViewModel.Size ?
+                sizeRepository[tshirtViewModel.Size] : tshirt.Size;
+
+            tshirt.Type = tshirt.Type is null ||
+                tshirt.Type.Id != tshirtViewModel.Type ?
+                typeRepository[tshirtViewModel.Type] : tshirt.Type;
+
+            tshirt.Color = tshirt.Color is null ||
+                tshirt.Color.Id != tshirtViewModel.Color ?
+                colorRepository[tshirtViewModel.Color] : tshirt.Color;
+
+            tshirt.Clothing = tshirt.Clothing is null ||
+                tshirt.Clothing.Id != tshirtViewModel.Clothing ?
+                clothingRepository[tshirtViewModel.Clothing] : tshirt.Clothing;
+                
             return tshirt;
         } // End of method ConvertToTshirt.
 
     } // End of class HomeController.
 
-} // End of namespace Camisetas.Controllers.
+} // End of namespace Camisetas.Controllers.tshirtViewModel.

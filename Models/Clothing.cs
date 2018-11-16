@@ -12,7 +12,7 @@ namespace Camisetas.Models
         [RegularExpression(@"^[A-Za-z]{1,20}$",
             ErrorMessage = "Use only uppercase and lowercase letters."
             + " Max.length: 1 - 20 characters")]
-        public override string Name {get;set;}
+        public override string Name {get;set;} = default;
     } // End of class Clothing.
 
 } // End of namespace Camisetas.Models.
